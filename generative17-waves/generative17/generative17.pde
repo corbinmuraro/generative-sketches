@@ -4,7 +4,7 @@ float WIDTH = 1000;
 float HEIGHT = 1000;
 int MARGIN = 100;
 int NUMVERTICES = 81;
-float ROWHEIGHT = 5;
+float ROWHEIGHT = 6;
 ArrayList<PVector> vectors = new ArrayList<PVector>();
 float currentX = MARGIN;
 float currentY = MARGIN;
@@ -23,7 +23,7 @@ void setup() {
 void draw() {
   background(255);
   stroke(0,0,0);
-  strokeWeight(2);
+  strokeWeight(2.25);
 
   x1 = currentX;
   y1 = currentY;
@@ -78,16 +78,15 @@ void drawFirstRow() {
 }
 
 void populatePage() {
-  
-  //print(vectors.size());
-  //for (int row = int(currentY); row < (HEIGHT - MARGIN); row += ROWHEIGHT) {
-  //   for (int i = 0; i < vectors.size(); i++) {
-  //     vectors.get(i).x += 0;
-  //     vectors.get(i).y = vectors.get(i).y + ROWHEIGHT + random(-1,1); 
-  //   }
-  //    drawRow();
-  //}
- 
+  for (int row = int(currentY); row < (HEIGHT - MARGIN); row += ROWHEIGHT) {
+    float yoff = 0;
+    for (int i = 0; i < vectors.size(); i++) {
+      vectors.get(i).x += 0;
+      vectors.get(i).y = vectors.get(i).y + ROWHEIGHT + map(noise(yoff),0,1,-2,2); 
+      yoff+= 0.1;
+    }
+    drawRow();
+  }
 }
 
 void drawRow() {

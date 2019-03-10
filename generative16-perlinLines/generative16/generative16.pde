@@ -4,11 +4,12 @@ float THRESHOLD = 0.6;
 float WIDTH = 700;
 float HEIGHT = 700;
 float MARGIN = 50;
-int SCALE = 12;
+int SCALE = 4;
 int ROWS = floor(HEIGHT / SCALE);
 int COLS = floor(WIDTH / SCALE);
 
 int rectWidth = 2;
+    
     
 void setup() {
   size(800, 800);
@@ -16,24 +17,7 @@ void setup() {
   pixelDensity(displayDensity());
   background(255);
   strokeWeight(2);
-  frameRate(200);
-  float xoff = 0;
-  float yoff = 0;
-  
-  
-  // draw horizontal line ->
-  for (int x = 0; x < WIDTH-SCALE; x+=SCALE) {
-    for (int y = 0; y < HEIGHT-SCALE; y+=SCALE) {
-      if (noise(xoff,yoff) > THRESHOLD) {
-         line(x+MARGIN,y+MARGIN,x+SCALE+MARGIN,y+MARGIN);
-      }
-      if (noise(xoff,yoff) > THRESHOLD-0.05) {
-         line(x+MARGIN,y+MARGIN,x+MARGIN,y+SCALE+MARGIN);
-      }
-      yoff += 0.20;
-    }
-    xoff += 0.54;
-  }
+  frameRate(60);
   
   //// draw vertical line /\
   //for (int x = 0; x < WIDTH; x+=SCALE) {
@@ -57,8 +41,25 @@ void setup() {
   //}
 }
 
+float zoff = 0;
 void draw() {  
- 
+  background(255);
+   float xoff = 0;
+  // draw horizontal line ->
+  for (int x = 0; x < WIDTH-SCALE; x+=SCALE) {
+    float yoff = 0;
+    for (int y = 0; y < HEIGHT-SCALE; y+=SCALE) {
+      if (noise(xoff,yoff,zoff) > THRESHOLD) {
+         line(x+MARGIN,y+MARGIN,x+SCALE+MARGIN,y+MARGIN);
+      }
+      if (noise(xoff,yoff,zoff) > THRESHOLD-0.05) {
+         line(x+MARGIN,y+MARGIN,x+MARGIN,y+SCALE+MARGIN);
+      }
+      yoff += 0.05;
+    }
+    xoff += 0.05;
+  }
+  zoff += 0.05;
 }
 
 
