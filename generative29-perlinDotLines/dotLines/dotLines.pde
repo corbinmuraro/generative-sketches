@@ -1,5 +1,5 @@
 void setup() {
-  size(1000,1000);
+  size(1000,600);
   background(0);
   stroke(255,255,255,200);
   fill(255,255,255,200);
@@ -9,25 +9,25 @@ void setup() {
 
 /* CONSTANTS */
 // layout
-final int padding = 100;
+final int padding = 30;
 
 // horizontal denseness
-final int numDots = 60;
+final int numDots = 80;
 
 // vertical denseness
-final int numLines = 25;
-final int rowHeight = 10;
+final int numLines = 20;
+final int rowHeight = 8;
 
 final float dotSize = 4;
 
 // perlin 
-final int verticalSpread = 500;
-final float perlinDotIncrement = 0.01;
-final float perlinRowIncrement = 0.015;
+final int verticalSpread = 800;
+final float perlinDotIncrement = 0.003;
+final float perlinRowIncrement = 0.018;
 
 
 
-float startingX = random(200,500);
+float startingX = 200;
 
 float perlinTimeStep = 0;  
 void draw() {
@@ -40,10 +40,15 @@ void draw() {
     
     float dotVerticalOffset = 0;
     for (int j = 1; j <= numDots; j++) {
-      float perlinVariation = map(noise(dotVerticalOffset,lineVerticalOffset,perlinTimeStep),0,1,-verticalSpread,verticalSpread);
+      float dotOffset = map(j, 0, numDots, 0, width-(padding*2));
       
-      float x = padding + map(noise(dotVerticalOffset,lineVerticalOffset,perlinTimeStep),0,1,-50,50) + map(j, 0, numDots, 0, width-(padding*2));
-      float y = startingX + lineOffset + perlinVariation;
+      float perlinXVariation = map(noise(dotVerticalOffset,lineVerticalOffset,perlinTimeStep),0,1,-50,50);
+      float perlinYVariation = map(noise(dotVerticalOffset,lineVerticalOffset,perlinTimeStep),0,1,-verticalSpread,verticalSpread);
+      
+      flo
+      
+      float x = padding + dotOffset + perlinXVariation;
+      float y = startingX + lineOffset + perlinYVariation;
       
       ellipse(x, y, dotSize, dotSize);
       
